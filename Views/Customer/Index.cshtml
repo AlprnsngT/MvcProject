@@ -1,0 +1,48 @@
+﻿@using _50DersteMvcProjeKampi.Models.Entity
+@model List<tblCustomers>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Müşteriler</h2>
+@using (Html.BeginForm("Index", "Customer", FormMethod.Get))
+{
+    <p>
+        <b>Aranacak Müşteri Adı:</b>
+        @Html.TextBox("customer") @* textbox içerisinde "customer" controllere gideceği için ordaki methot parametresi ile aynı olmalı*@
+        <input type="submit" value="Müşteriyi Ara" />
+    </p>
+}
+<table class="table table-bordered">
+    <tr>
+        <th>Müşteri ID</th>
+        <th>Müşteri ADI</th>
+        <th>Müşteri SOYADI</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+        <th>Alert</th>
+    </tr>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <th>@customer.CustomerId</th>
+                <td>@customer.CustomerName</td>
+                <td>@customer.CustomerSurname</td>
+                <td><a href="/Customer/DeleteCustomer/@customer.CustomerId" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Customer/UpdateCustomer/@customer.CustomerId" class="btn btn-success">Güncelle</a></td>
+                <td>
+                    @Html.ActionLink("Müşteriyi Sil", "DeleteCustomer",
+               new { id = customer.CustomerId },
+               new
+                        {
+                            @class = "btn btn-warning",
+               onclick = "return confirm('Müşteriyi silmek istediğinize emin misiniz?')"
+                        })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<a href="/Customer/NewCustomer/" class="btn btn-primary">Yeni Müşteri Ekle</a>

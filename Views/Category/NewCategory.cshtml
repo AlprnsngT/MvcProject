@@ -1,0 +1,26 @@
+﻿@model _50DersteMvcProjeKampi.Models.Entity.tblCategories
+@{
+    ViewBag.Title = "NewCategory";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Yeni Kategori</h2>
+@*burada methodu post dememizin sebebi butona tıklama işlemini beklesin ve
+    verileri hangi fonskiyona göndereceğini belli ediyoruz
+    controllerdeki httpPosta gönderiyoruz*@
+
+<form class="form-group" method="post">
+    <div>
+        @*bu kısmı güzelleştirelim
+        <label>Kategori Adı</label>
+        <input type="text" class="form-control" name="CategoryName"/>
+        buradaki name değeri vertabanı tablosundaki sütunla aynı olması gerek*@
+        <label>Kategori Adı</label>
+        @Html.TextBoxFor(m=>m.CategoryName,new {@class="form-control"})
+        @Html.ValidationMessageFor(m => m.CategoryName, "", new {@style="color:Red"})
+    </div>
+    <div style="margin:15px">
+        <button class="btn btn-info">Yeni Kategori Ekle</button>
+    </div>
+</form>
+

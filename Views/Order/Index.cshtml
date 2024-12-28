@@ -1,0 +1,119 @@
+﻿@using _50DersteMvcProjeKampi.Models.Entity
+@*@model List<tblOrders>
+@model List<tblProducts>*@
+@{ 
+    var orders = ViewBag.Orders as List<tblOrders>;
+    var products = ViewBag.Products as List<tblProducts>;
+}
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2> Siparişler</h2>
+@if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+<table id="tbl1" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Sipariş ID</th>
+            <th>Ürün Adı</th>
+            <th>Ürün Markası</th>
+            <th>Ürün Kategorisi</th>
+            <th>Ürün Fiyatı</th>
+            <th>Müşteri Bilgileri</th>
+            <th>Depoda Kalan Ürün Stok Sayısı</th>
+            
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in orders)
+        {
+
+            <tr>
+                <th>@order.OrderId</th>
+                <td>@order.tblProducts.ProductName</td>
+                <td>@order.tblProducts.ProductBrand</td>
+                <td>@order.tblProducts.tblCategories.CategoryName</td>
+                <td>@order.tblProducts.ProductPrice</td>
+                <td>@order.tblCustomers.CustomerName</td>
+                <td>@order.tblProducts.ProductStocks</td>
+                <td><a href="/Order/DeleteOrder/@order.OrderId" class="btn btn-danger">Sil</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<button type="modal" class="btn btn-primary" data-target="#Modal1" data-toggle="modal">
+    Satış Yap
+</button>
+@*modal classı ile beraber arka plan karardı*@
+<div class="modal" id="Modal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Satış Yap</h2>
+            </div>
+            @*action içerisinde order diye kullanmak OrderControllere gittiğini gösterir*@
+            <form method="post" action="/Order/NewOrder">
+                <div class="modal-body">
+                    <label>Ürün Adı</label>
+                    @Html.DropDownList("ProductId", (List<SelectListItem>)ViewBag.getProduct, "Lütfen Bir Ürün Seçin", new { @class = "form-control" })
+                    <br />
+                    <label>Müşteri Adı Soyadı</label>
+                    @Html.DropDownList("CustomerId", (List<SelectListItem>)ViewBag.customers, "Lütfen Bir Müşteri Seçin", new { @class = "form-control" })
+                    <br />
+                    <label> Ürün Fiyatı</label>
+                    @Html.TextBox("OrderPrice", "" ,new { @class = "form-control" })
+                    <br />
+                    <label> Adet</label>
+                    @Html.TextBox("OrderStocks", "", new { @class = "form-control" })
+                    <br />
+                    <button type="submit" class="btn btn-info">Satış İşlemini Yap</button>
+                    <button class="btn btn-danger" data-dismiss="modal">Vazgeç</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+
+<link href="~/Content/DataTables/css/dataTables.jqueryui.min.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+        $('#tbl1').DataTable({
+            "language": {
+                "sEmptyTable": "Tabloda veri yok",
+                "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arası görüntüleniyor",
+                "sInfoEmpty": "0 kayıttan 0 - 0 arası görüntüleniyor",
+                "sInfoFiltered": "(_MAX_ kayıttan filtrelenen)",
+                "sLengthMenu": "_MENU_ kayıt göster",
+                "sLoadingRecords": "Yükleniyor...",
+                "sProcessing": "İşleniyor...",
+                "sSearch": "Ara:",
+                "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                "oPaginate": {
+                    "sFirst": "İlk",
+                    "sLast": "Son",
+                    "sNext": "Sonraki",
+                    "sPrevious": "Önceki"
+                },
+                "oAria": {
+                    "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                    "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                }
+            }
+        });
+    });
+</script>

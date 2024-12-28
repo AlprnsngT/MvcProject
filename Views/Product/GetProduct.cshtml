@@ -1,0 +1,34 @@
+﻿@model _50DersteMvcProjeKampi.Models.Entity.tblProducts
+@{
+    ViewBag.Title = "GetProduct";
+}
+
+<h2>Ürün Güncelleme Sayfası</h2>
+@using (Html.BeginForm("UpdateProduct", "Product", FormMethod.Post))
+{
+    <div class="form-group">
+        <label>Ürün ID</label>
+        @Html.TextBoxFor(m => m.ProductId, new { @class = "form-control",@readonly = "readonly"})
+        <br />
+        <label>Ürün Adı</label>
+        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
+        <br />
+        <label>Ürün Markası</label>
+        @Html.TextBoxFor(m => m.ProductBrand, new { @class = "form-control" })
+        <br />
+        <label>Ürün Kategorisi</label>
+        @Html.DropDownListFor(m => m.tblCategories.CategoryId, (List<SelectListItem>)ViewBag.degerler, new { @class = "form-control" })
+        <br />
+        <label>Ürün Fiyatı</label>
+        @Html.TextBoxFor(m => m.ProductPrice, new { @class = "form-control" })
+        <br />
+        <label>Ürün Stok Sayısı</label>
+        @Html.TextBoxFor(m => m.ProductStocks, new { @class = "form-control" })
+    </div>
+    <div>
+        <button class="btn btn-warning">
+            Ürün Güncelle
+        </button>
+    </div>
+}
+

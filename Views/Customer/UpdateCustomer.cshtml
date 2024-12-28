@@ -1,0 +1,24 @@
+﻿@model _50DersteMvcProjeKampi.Models.Entity.tblCustomers
+@{
+    ViewBag.Title = "UpdateCustomer";
+}
+
+<h2>Müşteri Bilgilerini Güncelle</h2>
+@using (Html.BeginForm("HtmlUpdateCustomer", "Customer", FormMethod.Post))
+            {
+                <div>
+                    @Html.LabelFor(m=>m.CustomerId)
+                    @Html.TextBoxFor(m=>m.CustomerId , new { @class = "form-control" })
+
+                    @Html.LabelFor(m=>m.CustomerName)
+                    @Html.TextBoxFor(m=>m.CustomerName , new {@class ="form-control" })
+                    
+                    @Html.LabelFor(m=>m.CustomerSurname)
+                    @Html.TextBoxFor(m=>m.CustomerSurname , new { @class = "form-control" })
+                </div>
+                <br />
+                <div>
+                    <button class="btn btn-warning">Müşteri Güncelle</button>
+                </div>
+            }
+

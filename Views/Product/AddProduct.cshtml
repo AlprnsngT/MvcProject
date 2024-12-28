@@ -1,0 +1,34 @@
+﻿@model _50DersteMvcProjeKampi.Models.Entity.tblProducts
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Yeni Ürün Ekle</h2>
+<form class="form-group" method="post">
+    <div>
+        <label>Ürünün Adı</label>
+        <input type="text" class="form-control" name="ProductName" minLength="3" maxlength="30" required="" placeholder="Buraya Ürün Adını Girin" />
+    </div>
+    <div style="margin-top:15px">
+        <label>Ürünün Markası</label>
+        <input type="text" class="form-control" name="ProductBrand" minLength="3" maxlength="30" required="" placeholder="Buraya Markanızı Girin"/>
+    </div>
+    <div style="margin-top:15px">
+        <label>Ürünün Kategorisi</label>
+        @Html.DropDownListFor(m => m.tblCategories.CategoryId, (IEnumerable<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
+
+    </div>
+    <div style="margin-top:15px">
+        <label>Ürünün Fiyatı</label>
+        <input type="text" class="form-control" name="ProductPrice" required="" placeholder="Buraya Fiyatını Girin"/>
+    </div>
+    <div style="margin-top:15px">
+        <label>Ürünün Stok Sayısı</label>
+        <input type="text" class="form-control" name="ProductStocks" placeholder="Buraya Stok Adedini Girin"/>
+    </div>
+    <div style="margin-top:15px">
+        <button class="btn btn-info">Ürün Ekle</button>
+    </div>
+</form>
+

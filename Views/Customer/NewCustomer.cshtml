@@ -1,0 +1,35 @@
+﻿@model _50DersteMvcProjeKampi.Models.Entity.tblCustomers
+@{
+    ViewBag.Title = "NewCustomer";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Yeni Müşteri</h2>
+<form class="form-group" method="post">
+    <div>
+        <label>Müşteri ADI</label>
+        @*tasarımı değiştirelim ve validation ekleyelim
+        <input type="text" class="form-control" name="CustomerName" />*@
+        @Html.TextBoxFor(m=>m.CustomerName,new {@class = "form-control"})
+        @Html.ValidationMessageFor(m=>m.CustomerName,"",new {@style="color:Red"})
+        @*name niteliği olmadan form elemanı backend tarafından alınamaz, 
+        bu yüzden veri veritabanına eklenmiyor. 
+        name kullanarak formun backend tarafından doğru şekilde işlenmesini sağlamış oluyorsunuz.*@
+    </div>
+    <div style="margin-top:15px">
+        <label>Müşteri SOYADI</label>
+        @*validation için değiştiriyoruz
+        <input type="text" class="form-control" name="CustomerSurname"/>*@
+        @Html.TextBoxFor(m => m.CustomerSurname, new {@class="form-control"})
+        @Html.ValidationMessageFor(m => m.CustomerSurname, "", new {@style="color:Red"})
+    </div>
+    <div style="margin:15px">
+        <button class="btn btn-info" id="btn1">Müşteri Ekle</button>
+    </div>
+    <script>
+        $("#btn1").click(function () {
+            alert("Müşteri Eklendi");
+        });
+    </script>
+</form>
+

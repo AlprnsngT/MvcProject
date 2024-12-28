@@ -1,0 +1,40 @@
+﻿@using _50DersteMvcProjeKampi.Models.Entity
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<tblCategories>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Kategoriler</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Kategori ID</th>
+        <td>Kategori Adı</td>
+        <td>Sil</td>
+        <td>Güncelle</td>
+
+    </tr>
+    @foreach(var category in Model)
+            {
+                <tr>
+                    <th>@category.CategoryId</th>
+                    <td>@category.CategoryName</td>
+                    <td><a href="/Category/DeleteCategory/@category.CategoryId" class="btn btn-danger">Sil</a></td>
+                    <td><a href="/Category/UpdateCategory/@category.CategoryId" class="btn btn-success">Güncelle</a></td>
+                </tr>
+            }
+</table>
+@*kategorileri sayfalama işlemleri için nugetten pagedListMVC indirdik
+categoryController da paketleri ekledik.
+burada kullanabilmek için modeli pagedliste dönüştürüp using eklemek gerekiyor*@
+
+@*
+    sayfalama için pagedListPager ekledik
+    Url.action ile Indexe yönlendirme yaptık
+    daha sonra sayfadaki gözükecek block bitince yeni sayfaya yönlendirme yapıyoruz new{sayfa} ile
+*@
+
+@Html.PagedListPager((IPagedList)Model,sayfa=>Url.Action("Index",new {sayfa}))
+<a href="/Category/NewCategory/" class="btn btn-primary">Yeni Kategori Ekle</a>
